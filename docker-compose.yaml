@@ -1,33 +1,22 @@
 version: "3"
 services: 
     nginx:
-        build: 
-            context: ./Nginx
-            dockerfile: Dockerfile
+        build: Nginx
         ports: 
             - 80:80
         restart: always
-        depends_on: 
-            - client
-            - api
     db:
         image: "mcr.microsoft.com/mssql/server"
         environment:
             SA_PASSWORD: "MyPassword123"
             ACCEPT_EULA: "Y"
     client:
-        build:
-            context: ./Client
-            dockerfile: Dockerfile
+        build: Client
+        ports: 
+            - 4200:80
+    api2:
+        build: API
         ports: 
             - 5000:80
-        depends_on: 
-            - api
-    api:
-        build: 
-            context: ./API
-            dockerfile: Dockerfile
-        ports: 
-            - 3000:80
         depends_on: 
             - db
