@@ -1,0 +1,5 @@
+API/.vs
+API/bin
+API/obj
+Client/node_modules
+Client/dist
