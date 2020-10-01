@@ -1,3 +1,5 @@
-<!-- <router-outlet></router-outlet> -->
-{{response}}
-abc
+<div *ngFor="let message of messages">
+    <p>{{message.content}}</p>
+</div>
+
+<button (click)="submit()">Add message</button>

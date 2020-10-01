@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -10,38 +11,45 @@ namespace API.Controllers
     [Route("[controller]")]
     public class ApiController : ControllerBase
     {
-        //private readonly SqlContext _context;
+        private readonly SqlContext _context;
         private readonly ILogger<ApiController> _logger;
 
         public ApiController(ILogger<ApiController> logger
-            //, SqlContext context
+            , SqlContext context
             )
         {
             _logger = logger;
-            //_context = context;
+            _context = context;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Message>> Get()
         {
-            return Ok("hi");
-            //var messages = _context.Messages.ToList();
-            //return Ok(messages);
+            try
+            {
+                var messages = _context.Messages.ToList();
+                return Ok(messages);
+            }
+            catch (Exception e)
+            {
+                return Ok(e.Message);
+            }
         }
 
-        //[HttpPost]
-        //public ActionResult Post(Message message)
-        //{
-        //    try
-        //    {
-        //        message.Id = 0;
-        //        _context.Messages.Add(message);
-        //        return Ok(message);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return Ok("can't connect to database");
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult Post(Message message)
+        {
+            try
+            {
+                message.Id = 0;
+                _context.Messages.Add(message);
+                _context.SaveChanges();
+                return Ok(message);
+            }
+            catch (Exception)
+            {
+                return Ok("can't connect to database");
+            }
+        }
     }
 }

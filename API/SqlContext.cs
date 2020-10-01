@@ -1,13 +1,14 @@
-﻿//using Microsoft.EntityFrameworkCore;
+﻿using API.Models;
+using Microsoft.EntityFrameworkCore;
 
-//namespace API
-//{
-//    public class SqlContext : DbContext
-//    {
-//        public SqlContext(DbContextOptions<SqlContext> options) : base(options)
-//        {
-//        }
+namespace API
+{
+    public class SqlContext : DbContext
+    {
+        public SqlContext(DbContextOptions<SqlContext> options) : base(options)
+        {
+        }
 
-//        public DbSet<Message> Messages { get; set; }
-//    }
-//}
+        public DbSet<Message> Messages { get; set; }
+    }
+}
