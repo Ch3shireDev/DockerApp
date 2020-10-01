@@ -11,13 +11,20 @@ export class AppComponent {
   title = 'Client';
   response: string;
   messages: Message[];
-  constructor(private appService: AppService) {
+  content: string;
+
+  refresh() {
+
     this.appService.get().subscribe((messages: Message[]) => {
       this.messages = messages;
     });
   }
 
-  submit() {
-    this.appService.post({ content: 'kopytka' }).subscribe();
+  constructor(private appService: AppService) {
+    this.refresh();
+  }
+
+  submit(): void {
+    this.appService.post({ content: this.content }).subscribe(res => { this.refresh(); });
   }
 }
