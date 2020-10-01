@@ -1,3 +1,10 @@
+# #Initialize database
+# FROM mcr.microsoft.com/mssql/server AS db
+# ENV SA_PASSWORD=MyPassword123
+# ENV ACCEPT_EULA=Y
+
+# EXPOSE 1433
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 
@@ -17,7 +24,3 @@ COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "./API.dll"]
 EXPOSE 80
 
-# Initialize database
-# FROM mcr.microsoft.com/mssql/server
-# ENV SA_PASSWORD=MyPassword123
-# ENV ACCEPT_EULA=Y

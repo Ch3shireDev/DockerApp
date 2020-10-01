@@ -5,16 +5,16 @@ services:
         environment:
             SA_PASSWORD: "MyPassword123"
             ACCEPT_EULA: "Y"
-    client:
-        build: Client
-        ports: 
-            - 4000:80
     api:
         build: API
         ports: 
             - 3000:80
         depends_on: 
             - db
+    client:
+        build: Client
+        ports: 
+            - 4000:80
     nginx:
         build: Nginx
         ports: 
